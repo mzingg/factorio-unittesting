@@ -40,7 +40,7 @@ local mockLoaderEntity = {
     flags = {"placeable-neutral", "player-creation", "fast-replaceable-no-build-while-moving"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "mock-loader"},
     max_health = 170,
-    filter_count = 5,
+    filter_count = 2,
     corpse = "small-remnants",
     resistances =
     {
