@@ -1,23 +1,34 @@
-UnitTesting.LoaderMonitor = {
-    loaderMap = {}
+UnitTesting.Monitor = {
+    loaderMap = {},
+    testMap = {}
 }
 
-function UnitTesting.LoaderMonitor:registerLoader(factorioEntity)
-    if (self:isUnitTestingLoaderEntity(factorioEntity)) then
+function UnitTesting.Monitor:register(factorioEntity)
+    if (self:isMockLoader(factorioEntity)) then
         self.loaderMap[self:createEntityId(factorioEntity)] = factorioEntity
+    end
+    if (self:isUnitTest(factorioEntity)) then
+        self.testMap[self:createEntityId(factorioEntity)] = factorioEntity
     end
 end
 
-function UnitTesting.LoaderMonitor:unregisterLoader(factorioEntity)
-    if (self:isUnitTestingLoaderEntity(factorioEntity)) then
+function UnitTesting.Monitor:unregister(factorioEntity)
+    if (self:isMockLoader(factorioEntity)) then
         factorioEntity.get_transport_line(1).clear()
         factorioEntity.get_transport_line(2).clear()
 
         self.loaderMap[self:createEntityId(factorioEntity)] = nil
     end
+    if (self:isUnitTest(factorioEntity)) then
+        self.testMap[self:createEntityId(factorioEntity)] = nil
+    end
 end
 
-function UnitTesting.LoaderMonitor:updateLoaderStates(gameTicks)
+function UnitTesting.Monitor:update(gameTick)
+    self:updateLoaderStates(gameTick)
+end
+
+function UnitTesting.Monitor:updateLoaderStates(gameTick)
     local fullyCompressedItemCount = 4
     for _, loader in pairs(self.loaderMap) do
         local leftLane = loader.get_transport_line(1)
@@ -47,10 +58,14 @@ function UnitTesting.LoaderMonitor:updateLoaderStates(gameTicks)
     end
 end
 
-function UnitTesting.LoaderMonitor:isUnitTestingLoaderEntity(factorioEntity)
-    return factorioEntity.name == "mock-loader"
+function UnitTesting.Monitor:isUnitTest(factorioEntity)
+    return factorioEntity.valid and factorioEntity.unit_number and factorioEntity.name == "unit-test"
 end
 
-function UnitTesting.LoaderMonitor:createEntityId(factorioEntity)
-    return factorioEntity.position.x .. "-" .. factorioEntity.position.y
+function UnitTesting.Monitor:isMockLoader(factorioEntity)
+    return factorioEntity.valid and factorioEntity.unit_number and factorioEntity.name == "mock-loader"
+end
+
+function UnitTesting.Monitor:createEntityId(factorioEntity)
+    return factorioEntity.unit_number
 end
