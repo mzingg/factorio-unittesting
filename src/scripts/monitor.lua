@@ -8,7 +8,7 @@ function UnitTesting.Monitor:register(factorioEntity)
         self.loaderMap[factorioEntity.unit_number] = UnitTesting.MockLoader:new(factorioEntity)
     end
     if (self:isUnitTest(factorioEntity)) then
-        self.testMap[factorioEntity.unit_number] = factorioEntity
+        self.testMap[factorioEntity.unit_number] = UnitTesting.UnitTest:new(factorioEntity)
     end
 end
 
@@ -18,6 +18,7 @@ function UnitTesting.Monitor:unregister(factorioEntity)
         self.loaderMap[factorioEntity.unit_number] = nil
     end
     if (self:isUnitTest(factorioEntity)) then
+        self.testMap[factorioEntity.unit_number]:cleanup()
         self.testMap[factorioEntity.unit_number] = nil
     end
 end
@@ -25,6 +26,9 @@ end
 function UnitTesting.Monitor:update(gameTick)
     for _, loader in pairs(self.loaderMap) do
         loader:update(gameTick);
+    end
+    for _, test in pairs(self.testMap) do
+        test:update(gameTick);
     end
 end
 

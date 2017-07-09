@@ -1,6 +1,7 @@
 UnitTesting = {}
 
 require("entity.mock-loader")
+require("entity.unit-test")
 require("scripts.monitor")
 
 script.on_event(defines.events.on_built_entity, function(eventArguments)
