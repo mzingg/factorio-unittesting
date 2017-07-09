@@ -1,5 +1,6 @@
-require("scripts.base")
-require("scripts.mock-loader")
+UnitTesting = {}
+
+require("entity.mock-loader")
 require("scripts.monitor")
 
 script.on_event(defines.events.on_built_entity, function(eventArguments)
@@ -14,7 +15,7 @@ script.on_event(defines.events.on_entity_died, function(eventArguments)
     UnitTesting.Monitor:unregister(eventArguments.entity)
 end)
 
-script.on_event(defines.events.on_player_mined_entity, function(eventArguments)
+script.on_event(defines.events.on_preplayer_mined_item, function(eventArguments)
     UnitTesting.Monitor:unregister(eventArguments.entity)
 end)
 
