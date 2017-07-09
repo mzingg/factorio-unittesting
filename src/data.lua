@@ -1,3 +1,1 @@
-
-require("prototypes.mock-loader")
-require("prototypes.assert-items")
+require("data.mock-loader")

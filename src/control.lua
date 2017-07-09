@@ -1,5 +1,6 @@
 require("scripts.base")
 require("scripts.mock-loader")
+require("scripts.loader-monitor")
 
 script.on_event(defines.events.on_built_entity, function(eventArguments)
     UnitTesting.LoaderMonitor:registerLoader(eventArguments.created_entity)
