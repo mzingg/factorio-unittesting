@@ -1,6 +1,7 @@
 UnitTesting.Monitor = {
     loaderMap = {},
-    testMap = {}
+    testMap = {},
+    guiMap = {}
 }
 
 function UnitTesting.Monitor:register(factorioEntity)
@@ -29,6 +30,24 @@ function UnitTesting.Monitor:update(gameTick)
     end
     for _, test in pairs(self.testMap) do
         test:update(gameTick);
+    end
+end
+
+function UnitTesting.Monitor:registerGui(playerIndex, factorioPlayer)
+    if (not self.guiMap[playerIndex]) then
+        self.guiMap[playerIndex] = {}
+    end
+    local experimentsButton = UnitTesting.ExperimentsButton:new(mod_gui.get_button_flow(factorioPlayer))
+    self.guiMap[playerIndex][experimentsButton:name()] = experimentsButton
+end
+
+function UnitTesting.Monitor:updateGui(playerIndex, guiElement)
+    if (self.guiMap[playerIndex]) then
+        for _, registeredGuiElement in pairs(self.guiMap[playerIndex]) do
+            if (guiElement.name == registeredGuiElement:name()) then
+                registeredGuiElement:update();
+            end
+        end
     end
 end
 
