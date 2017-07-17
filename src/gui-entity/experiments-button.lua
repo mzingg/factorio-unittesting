@@ -7,7 +7,7 @@ function UnitTesting.ExperimentsButton:new(factorioFlowGui)
         return factorioFlowGui.add({
             type = "button",
             name = "unit-testing-config-button",
-            caption = { "unit-testing-open-experiments" },
+            caption = { "unit-testing-open-experiments-caption" },
             style = mod_gui.button_style
         })
     end
