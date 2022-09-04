@@ -1,2 +1,1 @@
-require("data.mock-loader")
-require("data.unit-test")
+require("data.all")

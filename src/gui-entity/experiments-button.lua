@@ -2,14 +2,9 @@ UnitTesting.ExperimentsButton = {
     buttonWidget = nil
 }
 
-function UnitTesting.ExperimentsButton:new(factorioFlowGui)
+function UnitTesting.ExperimentsButton:new(GUI)
     local function init_gui()
-        return factorioFlowGui.add({
-            type = "button",
-            name = "unit-testing-config-button",
-            caption = { "unit-testing-open-experiments-caption" },
-            style = mod_gui.button_style
-        })
+        return GUI.top.add{ type="label", name="greeting", caption="Heya"}
     end
 
     local newInstance = {
@@ -25,7 +20,9 @@ function UnitTesting.ExperimentsButton:name()
     return self.buttonWidget.name
 end
 
-function UnitTesting.ExperimentsButton:update()
-    -- update state of view
+function UnitTesting.ExperimentsButton:update(monitor)
+    for _, test in monitor:tests() do
+        test:connected()
+    end
 end
 

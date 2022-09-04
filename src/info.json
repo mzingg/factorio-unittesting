@@ -2,10 +2,10 @@
     "name": "UnitTesting",
     "version": "0.1.0",
     "title": "Unit Testing",
-    "description": "TBD",
+    "description": "Validate the ratios of your setups with a more 'immersive', test driven approach",
     "author": "Bordy",
     "contact": "bordunwow+factoriomod@gmail.com",
     "homepage": "http://www.factorio.com",
-    "factorio_version": "0.15",
-    "dependencies": ["base >= 0.15"]
+    "factorio_version": "1.1",
+    "dependencies": ["base >= 1.1.0"]
 }

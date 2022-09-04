@@ -3,6 +3,13 @@ UnitTesting.MockLoader = {
     desiredItemCount = 4
 }
 
+function UnitTesting.MockLoader.registerAll(monitor)
+    local allLoaders = game.surfaces[1].find_entities_filtered { name = "tdf-mock-loader" }
+    for i, foundLoader in ipairs(allLoaders) do
+        monitor:register(foundLoader)
+    end
+end
+
 function UnitTesting.MockLoader:new(factorioEntity)
     local newInstance = {
         entity = factorioEntity
@@ -14,14 +21,18 @@ function UnitTesting.MockLoader:new(factorioEntity)
 end
 
 function UnitTesting.MockLoader:cleanup()
-    if (self.entity == nil) then return end
+    if (self.entity == nil) then
+        return
+    end
 
     self.entity.get_transport_line(1).clear()
     self.entity.get_transport_line(2).clear()
 end
 
 function UnitTesting.MockLoader:update(gameTick)
-    if (self.entity == nil) then return end
+    if (self.entity == nil) then
+        return
+    end
 
     local loader = self.entity
     local leftLane = loader.get_transport_line(1)
